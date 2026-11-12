@@ -152,16 +152,16 @@ grep -E '^Link:' WHENCE | sed -e 's/^Link: *//g;s/-> //g' | while read l t; do
     if test -e "$target"; then
         $verbose "creating link $l -> $t"
         if [ "$num_jobs" -gt 1 ]; then
-            echo "ln -s \"$t\" \"$destdir/$l\"" >> "$parallel_args_file"
+            echo "ln -sfn \"$t\" \"$destdir/$l\"" >> "$parallel_args_file"
         else
-            ln -s "$t" "$destdir/$l"
+            ln -sfn "$t" "$destdir/$l"
         fi
     else
         $verbose "creating link $l$compext -> $t$compext"
         if [ "$num_jobs" -gt 1 ]; then
-            echo "ln -s \"$t$compext\" \"$destdir/$l$compext\"" >> "$parallel_args_file"
+            echo "ln -sfn \"$t$compext\" \"$destdir/$l$compext\"" >> "$parallel_args_file"
         else
-            ln -s "$t$compext" "$destdir/$l$compext"
+            ln -sfn "$t$compext" "$destdir/$l$compext"
         fi
     fi
 done
